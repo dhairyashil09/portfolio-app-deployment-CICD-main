@@ -25,7 +25,7 @@ pipeline {
                         sudo apt-get update -y &&
                         sudo apt-get install -y apache2 &&
                         sudo systemctl enable apache2 &&
-                        sudo systemctl start apache2 &&
+                        sudo systemctl start apache2 && "
 
                         echo "Cleaning old files on server..."
                         ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${SERVER_IP} "sudo rm -rf ${WEB_DIR}/*"
