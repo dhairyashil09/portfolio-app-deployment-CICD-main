@@ -20,7 +20,7 @@ pipeline {
                 sshagent(credentials: ["${SSH_CRED}"]) {
                     sh '''
 
-                        ehco "Connecting to server and installing Apache..."    
+                        echo "Connecting to server and installing Apache..."    
                         ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${SERVER_IP} "
                         sudo apt-get update -y &&
                         sudo apt-get install -y apache2 &&
