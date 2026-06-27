@@ -13,16 +13,19 @@ pipeline {
             steps {
                 git url: 'https://github.com/dhairyashil09/portfolio-app-deployment-CICD-main.git', branch: 'main'
             }
-        }
+        }   
 
         stage('Deploy to Apache Server') {
             steps {
                 sshagent(credentials: ["${SSH_CRED}"]) {
                     sh '''
-                        sudo apt-get update -y 
-                        sudo apt-get install -y apache2
-                        sudo systemctl enable apache2
-                        sudo systemctl start apache2
+
+                        ehco "Connecting to server and installing Apache..."    
+                        ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${SERVER_IP} "
+                        sudo apt-get update -y &&
+                        sudo apt-get install -y apache2 &&
+                        sudo systemctl enable apache2 &&
+                        sudo systemctl start apache2 &&
 
                         echo "Cleaning old files on server..."
                         ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${SERVER_IP} "sudo rm -rf ${WEB_DIR}/*"
